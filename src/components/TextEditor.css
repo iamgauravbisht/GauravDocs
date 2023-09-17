@@ -1,0 +1,13 @@
+.ql-toolbar.ql-snow {
+  width: 100%;
+  position: sticky;
+}
+
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+  border-top: 1px solid #ccc;
+  width: 100%;
+}
+.ql-container.ql-snow {
+  height: 100%;
+  flex: 1;
+}
