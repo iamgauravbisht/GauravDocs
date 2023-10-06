@@ -9,12 +9,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import NewDoc from "./NewDoc";
 
 export default function DisplaysDocs(): JSX.Element {
   return (
-    <Tabs defaultValue="recent" className="max-w-[600px]">
-      <NewDoc />
+    <Tabs defaultValue="recent" className="max-w-[600px] w-full">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="recent">Recent</TabsTrigger>
         <TabsTrigger value="all">All</TabsTrigger>

@@ -10,8 +10,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import imgSrc from "@/assets/images/avatar.png";
+import { logout } from "@/authController/authController";
 
 export function Account(): JSX.Element {
+  const logoutHandler = () => {
+    logout();
+    window.location.reload();
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -35,7 +40,7 @@ export function Account(): JSX.Element {
           <DropdownMenuItem>GitHub</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={logoutHandler}>
           Log out
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>
