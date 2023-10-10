@@ -15,7 +15,12 @@ type IState = {
   loginEmailError: string;
   loginPasswordError: string;
   currentDocumentId: string;
+  currentDocumentName: string;
   userId: string;
+  user: {
+    username: string;
+    email: string;
+  };
 };
 const initialState: IState = {
   appState: "auth",
@@ -32,7 +37,12 @@ const initialState: IState = {
   loginEmailError: "",
   loginPasswordError: "",
   currentDocumentId: "",
+  currentDocumentName: "",
   userId: "",
+  user: {
+    username: "",
+    email: "",
+  },
 };
 
 // Define the context type
@@ -70,7 +80,15 @@ type Action =
   | { type: "SET_LOGIN_EMAIL_ERROR"; payload: IState["loginEmailError"] }
   | { type: "SET_LOGIN_PASSWORD_ERROR"; payload: IState["loginPasswordError"] }
   | { type: "SET_CREATE_DOCUMENT_ID"; payload: IState["currentDocumentId"] }
-  | { type: "SET_USER_ID"; payload: IState["userId"] };
+  | { type: "SET_USER_ID"; payload: IState["userId"] }
+  | {
+      type: "SET_CURRENT_DOCUMENT_NAME";
+      payload: IState["currentDocumentName"];
+    }
+  | {
+      type: "SET_USER";
+      payload: IState["user"];
+    };
 
 function reducer(state: typeof initialState, action: Action) {
   switch (action.type) {
@@ -104,6 +122,10 @@ function reducer(state: typeof initialState, action: Action) {
       return { ...state, currentDocumentId: action.payload };
     case "SET_USER_ID":
       return { ...state, userId: action.payload };
+    case "SET_CURRENT_DOCUMENT_NAME":
+      return { ...state, currentDocumentName: action.payload };
+    case "SET_USER":
+      return { ...state, user: action.payload };
     default:
       return state;
   }

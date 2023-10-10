@@ -1,13 +1,16 @@
 import { ModeToggle } from "@/components/mode-toggle";
 import { Account } from "@/components/Account";
 import SearchBox from "./SearchBox";
-import AddUsers from "./AddUsers";
 import ShowAllUsers from "./ShowAllUsers";
 import { Button } from "@/components/ui/button";
 import useMyContext from "@/store/useMyContext";
+import { DocName } from "./DocName";
 
 const Header = (): JSX.Element => {
-  const { state } = useMyContext();
+  const { state, dispatch } = useMyContext();
+  const goBack = () => {
+    dispatch({ type: "SET_APPSTATE", payload: "home" });
+  };
 
   return (
     <header className="supports-backdrop-blur:bg-background/60 sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur ">
@@ -15,7 +18,7 @@ const Header = (): JSX.Element => {
         {/* if user not logged in */}
         {state.appState === "auth" ? (
           <>
-            <h2 className="text-2xl font-bold tracking-tight">
+            <h2 className="text-xl font-bold tracking-tight">
               Welcome to gauravDocs
             </h2>
             <ModeToggle />
@@ -36,10 +39,12 @@ const Header = (): JSX.Element => {
         {/* texteditor Header */}
         {state.appState === "editor" ? (
           <>
-            <Button>Home</Button>
+            <div className="flex gap-2">
+              <Button onClick={goBack}>Home</Button>
+              <DocName />
+            </div>
             <div className="flex items-center justify-between gap-2">
               <ShowAllUsers />
-              <AddUsers />
               <ModeToggle />
             </div>
           </>

@@ -1,74 +1,142 @@
 import { Button } from "@/components/ui/button";
+// import AddUserForm from "./AddUserForm";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  // SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { addUsers } from "@/authController/docController";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
+  // DropdownMenuPortal,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
+  // DropdownMenuSub,
+  // DropdownMenuSubContent,
+  // DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useState, useEffect } from "react";
+import { getAllUsers } from "@/authController/docController";
+import useMyContext from "@/store/useMyContext";
+
+type User = {
+  id: string;
+  username: string;
+  rights: string;
+};
 
 export default function ShowAllUsers(): JSX.Element {
+  const [allUsers, setAllUsers] = useState([]);
+  const { state } = useMyContext();
+  const [addUserId, setAddUserId] = useState("");
+  const [selectedValue, setSelectedValue] = useState<string>("");
+  const [addUserError, setAddUserError] = useState<string>("");
+
+  const handleAddUser = async () => {
+    setAddUserError("");
+    try {
+      if (!selectedValue) {
+        setAddUserError("Please select a role");
+      }
+      if (!addUserId) {
+        setAddUserError("Please enter a user id");
+      }
+      const check = await addUsers(
+        state.currentDocumentId,
+        addUserId,
+        selectedValue
+      );
+
+      if (check.error) {
+        setAddUserError(check.error);
+      } else {
+        setAddUserId("");
+        setSelectedValue("");
+        updateUsersList();
+      }
+    } catch (err) {
+      console.log(err);
+      setAddUserError("internal server error");
+    }
+  };
+
+  const updateUsersList = async () => {
+    const data = await getAllUsers(state.currentDocumentId);
+    setAllUsers(data.users);
+  };
+
+  useEffect(() => {
+    updateUsersList();
+  }, []);
+
+  console.log("allusers:", allUsers);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline">All Users</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel>All Users</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            Profile
-            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+          <DropdownMenuItem key={state.userId}>
+            {state.user.username}
+            <DropdownMenuShortcut>owner</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            Billing
-            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            Settings
-            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            Keyboard shortcuts
-            <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
-          </DropdownMenuItem>
+          {allUsers.length > 0
+            ? allUsers.map((data: User) => {
+                if (data) {
+                  return (
+                    <DropdownMenuItem key={data.id}>
+                      {data.username}
+                      <DropdownMenuShortcut>{data.rights}</DropdownMenuShortcut>
+                    </DropdownMenuItem>
+                  );
+                } else {
+                  return null;
+                }
+              })
+            : null}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>Team</DropdownMenuItem>
-          <DropdownMenuSub>
-            <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
-            <DropdownMenuPortal>
-              <DropdownMenuSubContent>
-                <DropdownMenuItem>Email</DropdownMenuItem>
-                <DropdownMenuItem>Message</DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>More...</DropdownMenuItem>
-              </DropdownMenuSubContent>
-            </DropdownMenuPortal>
-          </DropdownMenuSub>
-          <DropdownMenuItem>
-            New Team
-            <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
-          </DropdownMenuItem>
+          {/* <AddUserForm /> */}
+          {addUserError ? (
+            <small className="text-red-500 ml-1">{addUserError}</small>
+          ) : null}
+          <Input
+            id="addUserId"
+            placeholder="addUserId"
+            value={addUserId}
+            onChange={(e) => setAddUserId(e.target.value)}
+            className="mb-2"
+          />
+          <Select onValueChange={(value) => setSelectedValue(value)}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select a role" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem value="read">read</SelectItem>
+                <SelectItem value="read&write">read&write</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+          <Button className="w-full mt-2" onClick={handleAddUser}>
+            Add User
+          </Button>
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>GitHub</DropdownMenuItem>
-        <DropdownMenuItem>Support</DropdownMenuItem>
-        <DropdownMenuItem disabled>API</DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          Log out
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

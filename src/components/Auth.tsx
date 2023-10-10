@@ -19,13 +19,13 @@ export default function Auth(): JSX.Element {
 
   const storeSignuphandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const id = e.target.id;
-    if (id === "username") {
+    if (id === "signupusername") {
       dispatch({ type: "SET_SIGNUP_USERNAME", payload: e.target.value });
-    } else if (id === "email") {
+    } else if (id === "signupemail") {
       dispatch({ type: "SET_SIGNUP_EMAIL", payload: e.target.value });
-    } else if (id === "password") {
+    } else if (id === "signuppassword") {
       dispatch({ type: "SET_SIGNUP_PASSWORD", payload: e.target.value });
-    } else if (id === "confirmPassword") {
+    } else if (id === "signupconfirmpassword") {
       dispatch({
         type: "SET_SIGNUP_CONFIRMPASSWORD",
         payload: e.target.value,
@@ -154,7 +154,7 @@ export default function Auth(): JSX.Element {
   };
 
   return (
-    <Tabs defaultValue="signup" className="w-[400px]">
+    <Tabs defaultValue="signup" className="min-w-[300px] max-w-[400px]">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="signup">SignUp</TabsTrigger>
         <TabsTrigger value="login">Login</TabsTrigger>
@@ -169,9 +169,9 @@ export default function Auth(): JSX.Element {
           </CardHeader>
           <CardContent className="space-y-2">
             <div className="space-y-1">
-              <Label htmlFor="username">Username</Label>
+              <Label htmlFor="signupusername">Username</Label>
               <Input
-                id="username"
+                id="signupusername"
                 placeholder="@username"
                 value={state.signupUsername}
                 onChange={storeSignuphandler}
@@ -179,18 +179,18 @@ export default function Auth(): JSX.Element {
               <ErrorText>{state.signupUsernameError}</ErrorText>
             </div>
             <div className="space-y-1">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="signupemail">Email</Label>
               <Input
-                id="email"
+                id="signupemail"
                 placeholder="example@google.com"
                 onChange={storeSignuphandler}
               />
               <ErrorText>{state.signupEmailError}</ErrorText>
             </div>
             <div className="space-y-1">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="signuppassword">Password</Label>
               <Input
-                id="password"
+                id="signuppassword"
                 type="password"
                 placeholder="password"
                 onChange={storeSignuphandler}
@@ -198,9 +198,9 @@ export default function Auth(): JSX.Element {
               <ErrorText>{state.signupPasswordError}</ErrorText>
             </div>
             <div className="space-y-1">
-              <Label htmlFor="confirm password">confirm password</Label>
+              <Label htmlFor="signupconfirmpassword">confirm password</Label>
               <Input
-                id="confirmPassword"
+                id="signupconfirmpassword"
                 type="password"
                 placeholder="confirm password"
                 onChange={storeSignuphandler}

@@ -46,7 +46,7 @@ const Toolbar_Options = [
 
 export default function TextEditor(): JSX.Element {
   // const [value, setValue] = useState<string>("");
-  const { state } = useMyContext();
+  const { state, dispatch } = useMyContext();
 
   const [quill, setQuill] = useState<Quill | null>(null);
   const [socket, setSocket] = useState<Socket<
@@ -94,30 +94,17 @@ export default function TextEditor(): JSX.Element {
     };
   }, [socket, quill]);
 
-  // useEffect(() => {
-  //   if (socket == null || quill == null) return;
-
-  //   try {
-  //     // console.log("userId : ", state.userId);
-  //     //find or create function
-  //     createDoc(state.currentDocumentId, state.userId);
-  //     allDocs(state.currentDocumentId, state.userId);
-  //     recentDocs(state.currentDocumentId, state.userId);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  //   console.log("useffect render again");
-  // }, [socket, quill, state.currentDocumentId, state.userId]);
   useEffect(() => {
     if (socket == null || quill == null) return;
 
-    socket.once("load-document", (delta) => {
+    socket.once("load-document", (delta, title) => {
       quill.setContents(delta);
+      dispatch({ type: "SET_CURRENT_DOCUMENT_NAME", payload: title });
       quill.enable();
     });
 
     socket.emit("get-document", state.currentDocumentId, state.userId);
-  }, [socket, quill, state.currentDocumentId, state.userId]);
+  }, [socket, quill, state.currentDocumentId, state.userId, dispatch]);
 
   useEffect(() => {
     if (socket == null || quill == null) return;
