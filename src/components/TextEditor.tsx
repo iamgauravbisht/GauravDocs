@@ -1,21 +1,17 @@
 import "./TextEditor.css";
 import { useState, useEffect, useCallback } from "react";
-// import "react-quill/dist/quill.snow.css";
 import { io, Socket } from "socket.io-client";
 import Quill, { TextChangeHandler } from "quill";
-// import {
-//   createDoc,
-//   // updateDocument,
-//   recentDocs,
-//   allDocs,
-// } from "@/authController/docController";
-// import { createDoc } from "../authController/docController";
-// import DeltaOperation from "quill";
 import useMyContext from "../store/useMyContext";
 
 interface ServerToClientEvents {
   "receive-changes": (delta: unknown) => void;
-  "load-document": (delta: unknown) => void;
+  "load-document": (
+    delta: unknown,
+    title: string,
+    role: string,
+    owner: string
+  ) => void;
 }
 interface ClientToServerEvents {
   "send-changes": (delta: unknown) => void;
@@ -45,7 +41,6 @@ const Toolbar_Options = [
 ];
 
 export default function TextEditor(): JSX.Element {
-  // const [value, setValue] = useState<string>("");
   const { state, dispatch } = useMyContext();
 
   const [quill, setQuill] = useState<Quill | null>(null);
@@ -97,10 +92,20 @@ export default function TextEditor(): JSX.Element {
   useEffect(() => {
     if (socket == null || quill == null) return;
 
-    socket.once("load-document", (delta, title) => {
-      quill.setContents(delta);
-      dispatch({ type: "SET_CURRENT_DOCUMENT_NAME", payload: title });
-      quill.enable();
+    socket.once("load-document", (delta, title, role, owner) => {
+      if (role == "read&write" || role == "owner" || role == "read") {
+        quill.setContents(delta);
+        dispatch({ type: "SET_CURRENT_DOCUMENT_NAME", payload: title });
+        dispatch({ type: "SET_CURRENT_DOCUMENT_OWNER", payload: owner });
+        quill.enable();
+        if (role === "read") {
+          quill.disable();
+          quill.setContents(delta);
+        }
+      }
+      if (role == "unauthorized") {
+        quill.disable();
+      }
     });
 
     socket.emit("get-document", state.currentDocumentId, state.userId);

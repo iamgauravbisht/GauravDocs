@@ -16,8 +16,8 @@ import { deleteDoc } from "@/authController/docController";
 
 export default function DisplaysDocs(): JSX.Element {
   const { state, dispatch } = useMyContext();
-  const [recentDocs, setRecentDocs] = useState([]);
-  const [allDocs, setAllDocs] = useState([]);
+  const [recentDocs, setRecentDocs] = useState<Document[]>([]);
+  const [allDocs, setAllDocs] = useState<Document[]>([]);
 
   const editHandler = (documentId: string) => {
     // {state.appState === "editor" ? <TextEditor /> : null}

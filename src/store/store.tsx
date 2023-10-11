@@ -16,6 +16,7 @@ type IState = {
   loginPasswordError: string;
   currentDocumentId: string;
   currentDocumentName: string;
+  currentDocumentOwner: string;
   userId: string;
   user: {
     username: string;
@@ -43,6 +44,7 @@ const initialState: IState = {
     username: "",
     email: "",
   },
+  currentDocumentOwner: "",
 };
 
 // Define the context type
@@ -88,6 +90,10 @@ type Action =
   | {
       type: "SET_USER";
       payload: IState["user"];
+    }
+  | {
+      type: "SET_CURRENT_DOCUMENT_OWNER";
+      payload: IState["currentDocumentOwner"];
     };
 
 function reducer(state: typeof initialState, action: Action) {
@@ -126,6 +132,8 @@ function reducer(state: typeof initialState, action: Action) {
       return { ...state, currentDocumentName: action.payload };
     case "SET_USER":
       return { ...state, user: action.payload };
+    case "SET_CURRENT_DOCUMENT_OWNER":
+      return { ...state, currentDocumentOwner: action.payload };
     default:
       return state;
   }

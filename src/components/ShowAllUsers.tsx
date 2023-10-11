@@ -79,8 +79,6 @@ export default function ShowAllUsers(): JSX.Element {
     updateUsersList();
   }, []);
 
-  console.log("allusers:", allUsers);
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -90,8 +88,8 @@ export default function ShowAllUsers(): JSX.Element {
         <DropdownMenuLabel>All Users</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem key={state.userId}>
-            {state.user.username}
+          <DropdownMenuItem key={state.currentDocumentId}>
+            {state.currentDocumentOwner}
             <DropdownMenuShortcut>owner</DropdownMenuShortcut>
           </DropdownMenuItem>
           {allUsers.length > 0
