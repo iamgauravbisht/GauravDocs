@@ -43,6 +43,7 @@ const Toolbar_Options = [
 export default function TextEditor(): JSX.Element {
   const { state, dispatch } = useMyContext();
 
+  // const [loaded, setLoaded] = useState(false); // Add a loaded flag
   const [quill, setQuill] = useState<Quill | null>(null);
   const [socket, setSocket] = useState<Socket<
     ServerToClientEvents,
@@ -62,45 +63,15 @@ export default function TextEditor(): JSX.Element {
 
   useEffect(() => {
     if (socket == null || quill == null) return;
-    const handler = (delta) => {
-      quill.updateContents(delta);
-    };
-    socket.on("receive-changes", handler);
-
-    return () => {
-      socket.off("receive-changes", handler);
-    };
-  }, [socket, quill]);
-
-  useEffect(() => {
-    if (socket == null || quill == null) return;
-
-    const handler: TextChangeHandler = async (
-      delta
-      // _oldDelta,
-      // source: string
-    ) => {
-      socket.emit("send-changes", delta);
-    };
-    quill.on("text-change", handler);
-
-    return () => {
-      quill.off("text-change", handler);
-    };
-  }, [socket, quill]);
-
-  useEffect(() => {
-    if (socket == null || quill == null) return;
 
     socket.once("load-document", (delta, title, role, owner) => {
       if (role == "read&write" || role == "owner" || role == "read") {
-        quill.setContents(delta);
         dispatch({ type: "SET_CURRENT_DOCUMENT_NAME", payload: title });
         dispatch({ type: "SET_CURRENT_DOCUMENT_OWNER", payload: owner });
+        quill.setContents(delta);
         quill.enable();
         if (role === "read") {
           quill.disable();
-          quill.setContents(delta);
         }
       }
       if (role == "unauthorized") {
@@ -119,6 +90,34 @@ export default function TextEditor(): JSX.Element {
 
     return () => {
       clearInterval(interval);
+    };
+  }, [socket, quill]);
+
+  useEffect(() => {
+    if (socket == null || quill == null) return;
+    const handler = (delta) => {
+      quill.updateContents(delta);
+      console.log("recieve-changes:", delta);
+    };
+    socket.on("receive-changes", handler);
+
+    return () => {
+      socket.off("receive-changes", handler);
+    };
+  }, [socket, quill]);
+
+  useEffect(() => {
+    if (socket == null || quill == null) return;
+
+    const handler: TextChangeHandler = async (delta, _oldDelta, source) => {
+      if (source !== "user") return;
+      socket.emit("send-changes", delta);
+    };
+
+    quill.on("text-change", handler);
+
+    return () => {
+      quill.off("text-change", handler);
     };
   }, [socket, quill]);
 

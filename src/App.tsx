@@ -19,7 +19,7 @@ function App() {
       } else {
         dispatch({
           type: "SET_USER",
-          payload: { username: data.user.username, email: data.user.email },
+          payload: { username: data?.user?.username, email: data?.user?.email },
         });
         dispatch({ type: "SET_USER_ID", payload: data.user._id });
         dispatch({ type: "SET_APPSTATE", payload: "home" });
