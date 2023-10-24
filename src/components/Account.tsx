@@ -15,7 +15,7 @@ import { logout } from "@/authController/authController";
 export function Account(): JSX.Element {
   const logoutHandler = () => {
     logout();
-    window.location.reload();
+    window.location.href = "https://iamgauravbisht.github.io/gauravdocs/";
   };
   return (
     <DropdownMenu>
