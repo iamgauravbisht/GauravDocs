@@ -3,7 +3,7 @@ const signup_post = async (
   email: string,
   password: string
 ) => {
-  return await fetch("http://localhost:3000/signup", {
+  return await fetch("https://docserver-ecsy.onrender.com/signup", {
     method: "POST",
     credentials: "include",
     body: JSON.stringify({ username, email, password }),
@@ -12,7 +12,7 @@ const signup_post = async (
 };
 
 const verifyAuth = async () => {
-  return await fetch("http://localhost:3000/verifyAuth", {
+  return await fetch("https://docserver-ecsy.onrender.com/verifyAuth", {
     method: "GET",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
@@ -20,7 +20,7 @@ const verifyAuth = async () => {
 };
 
 const login_post = async (email: string, password: string) => {
-  return await fetch("http://localhost:3000/login", {
+  return await fetch("https://docserver-ecsy.onrender.com/login", {
     method: "POST",
     credentials: "include",
     body: JSON.stringify({ email, password }),
@@ -29,7 +29,7 @@ const login_post = async (email: string, password: string) => {
 };
 
 const logout = async () => {
-  return await fetch("http://localhost:3000/logout", {
+  return await fetch("https://docserver-ecsy.onrender.com/logout", {
     method: "GET",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
@@ -37,7 +37,7 @@ const logout = async () => {
 };
 
 const Me = async () => {
-  return await fetch(`http://localhost:3000/me`, {
+  return await fetch(`https://docserver-ecsy.onrender.com/me`, {
     method: "GET",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
