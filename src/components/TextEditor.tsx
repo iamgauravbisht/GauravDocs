@@ -2,12 +2,13 @@ import "./TextEditor.css";
 import { useState, useEffect, useCallback } from "react";
 import { io, Socket } from "socket.io-client";
 import Quill, { TextChangeHandler } from "quill";
+import Delta from "quill-delta";
 import useMyContext from "../store/useMyContext";
 
 interface ServerToClientEvents {
-  "receive-changes": (delta: unknown) => void;
+  "receive-changes": (delta: Delta) => void;
   "load-document": (
-    delta: unknown,
+    delta: Delta,
     title: string,
     role: string,
     owner: string
@@ -64,7 +65,7 @@ export default function TextEditor(): JSX.Element {
   useEffect(() => {
     if (socket == null || quill == null) return;
 
-    socket.once("load-document", (delta, title, role, owner) => {
+    socket.once("load-document", (delta: Delta, title, role, owner) => {
       if (role == "read&write" || role == "owner" || role == "read") {
         dispatch({ type: "SET_CURRENT_DOCUMENT_NAME", payload: title });
         dispatch({ type: "SET_CURRENT_DOCUMENT_OWNER", payload: owner });
@@ -95,7 +96,7 @@ export default function TextEditor(): JSX.Element {
 
   useEffect(() => {
     if (socket == null || quill == null) return;
-    const handler = (delta) => {
+    const handler = (delta: Delta) => {
       quill.updateContents(delta);
       console.log("recieve-changes:", delta);
     };

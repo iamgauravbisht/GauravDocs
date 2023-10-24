@@ -25,7 +25,7 @@ import {
   // DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { getAllUsers } from "@/authController/docController";
 import useMyContext from "@/store/useMyContext";
 
@@ -75,13 +75,13 @@ export default function ShowAllUsers(): JSX.Element {
     setAllUsers(data.users);
   };
 
-  useEffect(() => {
-    updateUsersList();
-  }, []);
+  // useEffect(() => {
+  //   updateUsersList();
+  // }, []);
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger asChild onClick={updateUsersList}>
         <Button variant="outline">All Users</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">

@@ -20,7 +20,7 @@ export function DocName() {
   };
   return (
     <Dialog>
-      <DialogTrigger asChild>
+      <DialogTrigger asChild className="">
         <Button variant="outline">{state.currentDocumentName}</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
