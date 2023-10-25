@@ -28,5 +28,9 @@ jobs:
           git remote remove origin
           git remote add origin http://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@github.com/iamgauravbisht/gauravdocs
 
+      - name: Verify Git Configuration
+        run: |
+          git config --list
+
       - name: Build and Deploy
         run: npm run deploy
