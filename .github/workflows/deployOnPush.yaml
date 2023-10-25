@@ -21,5 +21,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Set Git identity
+        run: |
+          git config --global user.email "gauravbisht154@gmail.com"
+          git config --global user.name "Gaurav Bisht"
+
       - name: Build and Deploy
         run: npm run deploy
