@@ -53,7 +53,7 @@ export default function TextEditor(): JSX.Element {
 
   useEffect(() => {
     const s: Socket<ServerToClientEvents, ClientToServerEvents> = io(
-      "http://localhost:3000"
+      "https://docserver-ecsy.onrender.com"
     );
     setSocket(s);
 
