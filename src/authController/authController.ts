@@ -56,14 +56,6 @@ const login_post = async (email: string, password: string) => {
   }).then((res) => res.json());
 };
 
-const logout = async () => {
-  return await fetch("https://docserver-ecsy.onrender.com/logout", {
-    method: "GET",
-    credentials: "include",
-    headers: { "Content-Type": "application/json" },
-  }).then((res) => res.json());
-};
-
 const Me = async () => {
   const jwtValue = getCookie("jwt");
 
@@ -83,4 +75,4 @@ const Me = async () => {
   });
 };
 
-export { signup_post, login_post, Me, verifyAuth, logout };
+export { signup_post, login_post, Me, verifyAuth };

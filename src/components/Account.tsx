@@ -10,11 +10,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import imgSrc from "@/assets/images/avatar.png";
-import { logout } from "@/authController/authController";
 
 export function Account(): JSX.Element {
+  function deleteCookie(cookieName: string) {
+    document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+  }
   const logoutHandler = () => {
-    logout();
+    deleteCookie("jwt");
     window.location.href = "https://iamgauravbisht.github.io/gauravdocs/";
   };
   return (
