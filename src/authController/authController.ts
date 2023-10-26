@@ -14,15 +14,6 @@ function getCookie(cookieName: string) {
   }
   return "";
 }
-const jwtValue = getCookie("jwt");
-
-if (jwtValue !== "") {
-  // Use the cookie value
-  console.log("Value of myCookie:", jwtValue);
-} else {
-  // Cookie not found
-  console.log("myCookie not found.");
-}
 
 const signup_post = async (
   username: string,
@@ -38,6 +29,15 @@ const signup_post = async (
 };
 
 const verifyAuth = async () => {
+  const jwtValue = getCookie("jwt");
+
+  if (jwtValue !== "") {
+    // Use the cookie value
+    console.log("Value of myCookie:", jwtValue);
+  } else {
+    // Cookie not found
+    console.log("myCookie not found.");
+  }
   return await fetch(
     `https://docserver-ecsy.onrender.com/verifyAuth?jwt=${jwtValue}`,
     {
@@ -65,6 +65,15 @@ const logout = async () => {
 };
 
 const Me = async () => {
+  const jwtValue = getCookie("jwt");
+
+  if (jwtValue !== "") {
+    // Use the cookie value
+    console.log("Value of myCookie:", jwtValue);
+  } else {
+    // Cookie not found
+    console.log("myCookie not found.");
+  }
   return await fetch(`https://docserver-ecsy.onrender.com/me?jwt=${jwtValue}`, {
     method: "GET",
     credentials: "include",
