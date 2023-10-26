@@ -95,7 +95,7 @@ export default function Auth(): JSX.Element {
         console.log("signup Handler data", data);
         if (data) {
           document.cookie = `jwt=${
-            data.token
+            data.cookie
           }; secure=true; samesite=strict; path=/; max-age=${60 * 60 * 24 * 7}`;
           window.location.href = "https://iamgauravbisht.github.io/gauravdocs/";
         }
@@ -139,7 +139,7 @@ export default function Auth(): JSX.Element {
     if (data) {
       console.log("login Handler data", data);
       document.cookie = `jwt=${
-        data.token
+        data.cookie
       }; secure=true; samesite=strict; path=/; max-age=${60 * 60 * 24 * 7}`;
       // window.location.href = "https://iamgauravbisht.github.io/gauravdocs/";
     }
