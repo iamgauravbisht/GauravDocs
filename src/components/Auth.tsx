@@ -93,7 +93,7 @@ export default function Auth(): JSX.Element {
       } else {
         // if there is no error, redirect the user to the home page
         if (data) {
-          document.cookie = `token=${
+          document.cookie = `jwt=${
             data.token
           }; secure=true; samesite=strict; path=/; max-age=${60 * 60 * 24 * 7}`;
           window.location.href = "https://iamgauravbisht.github.io/gauravdocs/";
@@ -136,7 +136,7 @@ export default function Auth(): JSX.Element {
     }
     // if there is no error, redirect the user to the home page
     if (data) {
-      document.cookie = `token=${
+      document.cookie = `jwt=${
         data.token
       }; secure=true; samesite=strict; path=/; max-age=${60 * 60 * 24 * 7}`;
       window.location.href = "https://iamgauravbisht.github.io/gauravdocs/";
