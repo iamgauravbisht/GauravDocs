@@ -141,7 +141,7 @@ export default function Auth(): JSX.Element {
       document.cookie = `jwt=${
         data.token
       }; secure=true; samesite=strict; path=/; max-age=${60 * 60 * 24 * 7}`;
-      window.location.href = "https://iamgauravbisht.github.io/gauravdocs/";
+      // window.location.href = "https://iamgauravbisht.github.io/gauravdocs/";
     }
 
     // clear the input fields if the user is successfully signed up
