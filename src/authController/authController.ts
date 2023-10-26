@@ -16,13 +16,13 @@ function getCookie(cookieName: string) {
 }
 const jwtValue = getCookie("jwt");
 
-// if (jwtValue !== "") {
-//   // Use the cookie value
-//   console.log("Value of myCookie:", jwtValue);
-// } else {
-//   // Cookie not found
-//   console.log("myCookie not found.");
-// }
+if (jwtValue !== "") {
+  // Use the cookie value
+  console.log("Value of myCookie:", jwtValue);
+} else {
+  // Cookie not found
+  console.log("myCookie not found.");
+}
 
 const signup_post = async (
   username: string,
