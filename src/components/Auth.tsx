@@ -92,9 +92,12 @@ export default function Auth(): JSX.Element {
         }
       } else {
         // if there is no error, redirect the user to the home page
-        // if (data) {
-        //   window.location.href = "https://iamgauravbisht.github.io/gauravdocs/";
-        // }
+        if (data) {
+          document.cookie = `token=${
+            data.token
+          }; secure=true; samesite=strict; path=/; max-age=${60 * 60 * 24 * 7}`;
+          window.location.href = "https://iamgauravbisht.github.io/gauravdocs/";
+        }
 
         // clear the input fields if the user is successfully signed up
         dispatch({ type: "SET_SIGNUP_USERNAME", payload: "" });
@@ -132,9 +135,12 @@ export default function Auth(): JSX.Element {
       }
     }
     // if there is no error, redirect the user to the home page
-    // if (data.user) {
-    //   window.location.href = "https://iamgauravbisht.github.io/gauravdocs/";
-    // }
+    if (data) {
+      document.cookie = `token=${
+        data.token
+      }; secure=true; samesite=strict; path=/; max-age=${60 * 60 * 24 * 7}`;
+      window.location.href = "https://iamgauravbisht.github.io/gauravdocs/";
+    }
 
     // clear the input fields if the user is successfully signed up
     dispatch({ type: "SET_LOGIN_EMAIL", payload: "" });
