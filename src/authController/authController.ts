@@ -38,11 +38,13 @@ const signup_post = async (
 };
 
 const verifyAuth = async () => {
-  return await fetch("https://docserver-ecsy.onrender.com/verifyAuth", {
-    method: "GET",
-    body: JSON.stringify({ jwt: jwtValue }),
-    headers: { "Content-Type": "application/json" },
-  }).then((res) => res.json());
+  return await fetch(
+    `https://docserver-ecsy.onrender.com/verifyAuth?jwt=${jwtValue}`,
+    {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    }
+  ).then((res) => res.json());
 };
 
 const login_post = async (email: string, password: string) => {
@@ -63,7 +65,7 @@ const logout = async () => {
 };
 
 const Me = async () => {
-  return await fetch(`https://docserver-ecsy.onrender.com/me`, {
+  return await fetch(`https://docserver-ecsy.onrender.com/me?jwt=${jwtValue}`, {
     method: "GET",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
