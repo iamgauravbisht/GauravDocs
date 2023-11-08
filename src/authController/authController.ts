@@ -20,7 +20,7 @@ const signup_post = async (
   email: string,
   password: string
 ) => {
-  return await fetch("https://docserver-ecsy.onrender.com/signup", {
+  return await fetch("https://gauravdoc-a6df4891978f.herokuapp.com/signup", {
     method: "POST",
     credentials: "include",
     body: JSON.stringify({ username, email, password }),
@@ -39,7 +39,7 @@ const verifyAuth = async () => {
     console.log("myCookie not found.");
   }
   return await fetch(
-    `https://docserver-ecsy.onrender.com/verifyAuth?jwt=${jwtValue}`,
+    `https://gauravdoc-a6df4891978f.herokuapp.com/verifyAuth?jwt=${jwtValue}`,
     {
       method: "GET",
       headers: { "Content-Type": "application/json" },
@@ -48,7 +48,7 @@ const verifyAuth = async () => {
 };
 
 const login_post = async (email: string, password: string) => {
-  return await fetch("https://docserver-ecsy.onrender.com/login", {
+  return await fetch("https://gauravdoc-a6df4891978f.herokuapp.com/login", {
     method: "POST",
     credentials: "include",
     body: JSON.stringify({ email, password }),
@@ -66,11 +66,14 @@ const Me = async () => {
     // Cookie not found
     console.log("myCookie not found.");
   }
-  return await fetch(`https://docserver-ecsy.onrender.com/me?jwt=${jwtValue}`, {
-    method: "GET",
-    credentials: "include",
-    headers: { "Content-Type": "application/json" },
-  }).then((res) => {
+  return await fetch(
+    `https://gauravdoc-a6df4891978f.herokuapp.com/me?jwt=${jwtValue}`,
+    {
+      method: "GET",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+    }
+  ).then((res) => {
     return res.json();
   });
 };

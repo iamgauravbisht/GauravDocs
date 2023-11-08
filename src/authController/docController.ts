@@ -1,5 +1,5 @@
 const createDoc = async (id: string, userId: string) => {
-  return await fetch("https://docserver-ecsy.onrender.com/createDoc", {
+  return await fetch("https://gauravdoc-a6df4891978f.herokuapp.com/createDoc", {
     method: "POST",
     credentials: "include",
     body: JSON.stringify({ id, userId }),
@@ -10,7 +10,7 @@ const createDoc = async (id: string, userId: string) => {
 };
 
 const deleteDoc = async (id: string) => {
-  return await fetch("https://docserver-ecsy.onrender.com/deleteDoc", {
+  return await fetch("https://gauravdoc-a6df4891978f.herokuapp.com/deleteDoc", {
     method: "POST",
     credentials: "include",
     body: JSON.stringify({ id }),
@@ -21,7 +21,7 @@ const deleteDoc = async (id: string) => {
 };
 
 const updateDocument = async (id: string, newData: string) => {
-  return await fetch("https://docserver-ecsy.onrender.com/updateDoc", {
+  return await fetch("https://gauravdoc-a6df4891978f.herokuapp.com/updateDoc", {
     method: "POST",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
@@ -33,7 +33,7 @@ const updateDocument = async (id: string, newData: string) => {
 
 const getRecentDocs = async (userId: string) => {
   return await fetch(
-    `https://docserver-ecsy.onrender.com/recentDocs?userId=${userId}`,
+    `https://gauravdoc-a6df4891978f.herokuapp.com/recentDocs?userId=${userId}`,
     {
       method: "GET",
       credentials: "include",
@@ -46,7 +46,7 @@ const getRecentDocs = async (userId: string) => {
 
 const getAllDocs = async (userId: string) => {
   return await fetch(
-    `https://docserver-ecsy.onrender.com/allDocs?userId=${userId}`,
+    `https://gauravdoc-a6df4891978f.herokuapp.com/allDocs?userId=${userId}`,
     {
       method: "GET",
       credentials: "include",
@@ -57,7 +57,7 @@ const getAllDocs = async (userId: string) => {
   });
 };
 const saveName = async (id: string, newData: string) => {
-  return await fetch("https://docserver-ecsy.onrender.com/saveName", {
+  return await fetch("https://gauravdoc-a6df4891978f.herokuapp.com/saveName", {
     method: "POST",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
@@ -67,7 +67,7 @@ const saveName = async (id: string, newData: string) => {
   });
 };
 const getAllUsers = async (id: string) => {
-  return await fetch("https://docserver-ecsy.onrender.com/allUsers", {
+  return await fetch("https://gauravdoc-a6df4891978f.herokuapp.com/allUsers", {
     method: "POST",
     credentials: "include",
     body: JSON.stringify({ id }),
@@ -77,7 +77,7 @@ const getAllUsers = async (id: string) => {
   });
 };
 const addUsers = async (id: string, addUserId: string, rights: string) => {
-  return await fetch("https://docserver-ecsy.onrender.com/shareDoc", {
+  return await fetch("https://gauravdoc-a6df4891978f.herokuapp.com/shareDoc", {
     method: "POST",
     credentials: "include",
     body: JSON.stringify({ id, addUserId, rights }),

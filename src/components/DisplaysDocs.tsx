@@ -136,7 +136,7 @@ export default function DisplaysDocs(): JSX.Element {
           <TableHeader>
             <TableRow>
               <TableHead className="">Document Name</TableHead>
-              <TableHead>Date</TableHead>
+              <TableHead className="hidden sm:table-cell">Date</TableHead>
               <TableHead className="text-right">Edit</TableHead>
               <TableHead className="text-right">Delete</TableHead>
             </TableRow>
