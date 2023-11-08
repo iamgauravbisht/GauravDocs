@@ -20,7 +20,7 @@ const signup_post = async (
   email: string,
   password: string
 ) => {
-  return await fetch("https://gauravdoc-a6df4891978f.herokuapp.com/signup", {
+  return await fetch("https://docserver-f592a31654e4.herokuapp.com/signup", {
     method: "POST",
     credentials: "include",
     body: JSON.stringify({ username, email, password }),
@@ -39,7 +39,7 @@ const verifyAuth = async () => {
     console.log("myCookie not found.");
   }
   return await fetch(
-    `https://gauravdoc-a6df4891978f.herokuapp.com/verifyAuth?jwt=${jwtValue}`,
+    `https://docserver-f592a31654e4.herokuapp.com/verifyAuth?jwt=${jwtValue}`,
     {
       method: "GET",
       headers: { "Content-Type": "application/json" },
@@ -48,7 +48,7 @@ const verifyAuth = async () => {
 };
 
 const login_post = async (email: string, password: string) => {
-  return await fetch("https://gauravdoc-a6df4891978f.herokuapp.com/login", {
+  return await fetch("https://docserver-f592a31654e4.herokuapp.com/login", {
     method: "POST",
     credentials: "include",
     body: JSON.stringify({ email, password }),
@@ -67,7 +67,7 @@ const Me = async () => {
     console.log("myCookie not found.");
   }
   return await fetch(
-    `https://gauravdoc-a6df4891978f.herokuapp.com/me?jwt=${jwtValue}`,
+    `https://docserver-f592a31654e4.herokuapp.com/me?jwt=${jwtValue}`,
     {
       method: "GET",
       credentials: "include",
