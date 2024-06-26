@@ -53,7 +53,7 @@ export default function TextEditor(): JSX.Element {
 
   useEffect(() => {
     const s: Socket<ServerToClientEvents, ClientToServerEvents> = io(
-      "https://docserver-f592a31654e4.herokuapp.com"
+      "https://docs-server-bnxb.onrender.com"
     );
     setSocket(s);
 
